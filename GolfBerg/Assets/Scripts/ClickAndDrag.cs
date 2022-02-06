@@ -43,8 +43,8 @@ public class ClickAndDrag : MonoBehaviour
             selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
 
             // check if object overlaps another object (get object center and box size)
-            BoxCollider2D selectedObjCollider = selectedObj.GetComponent<BoxCollider2D>();
-            Vector2 size = selectedObjCollider.size;
+            Collider2D selectedObjCollider = selectedObj.GetComponent<Collider2D>();
+            Vector2 size = selectedObjCollider.bounds.size;
             List<Collider2D> results = new List<Collider2D>();
             ContactFilter2D filter = new ContactFilter2D();
             int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
