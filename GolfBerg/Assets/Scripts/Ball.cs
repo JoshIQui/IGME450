@@ -77,7 +77,7 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "Spring")
         {
             // Add a force to the object in the direction the spring is pointing
-            print("Test");
+            rb.velocity = new Vector2(0, 0);
             rb.AddForce(collision.gameObject.transform.up * springForce, ForceMode2D.Impulse);
         }
     }
