@@ -15,6 +15,23 @@ public class ClickAndDrag : MonoBehaviour
     private GameObject selectedObj;
     [SerializeField]
     private float gridCellSize = 1;
+    [SerializeField]
+    private int gridHalfWidth = 10;
+    [SerializeField]
+    private int gridHalfHeight = 10;
+    [SerializeField]
+    private GameObject gridCell;
+
+    void Start()
+    {
+        for (int i = -gridHalfWidth; i <= gridHalfWidth; i++)
+        {
+            for (int j = -gridHalfHeight; j <= gridHalfHeight; j++)
+            {
+                Instantiate(gridCell, new Vector3(i * gridCellSize, j * gridCellSize, 0.1f), Quaternion.identity);
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()

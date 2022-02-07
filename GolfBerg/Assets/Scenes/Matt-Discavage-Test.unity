@@ -895,7 +895,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2a4ed4a34e45b4ab26b2db1d4e4d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCellSize: 1
+  gridCellSize: 2
+  gridHalfWidth: 10
+  gridHalfHeight: 10
+  gridCell: {fileID: 1949420406068844874, guid: c7101426a2ed648458b879cc530a35c3, type: 3}
 --- !u!4 &706278252
 Transform:
   m_ObjectHideFlags: 0
