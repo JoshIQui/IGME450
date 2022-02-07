@@ -10,7 +10,8 @@ enum ForceDirection
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float horizontalForceVelocty = 1.0f;
+    [SerializeField] private float horizontalForceVelocty = 5.0f;
+    [SerializeField] private float springForce = 10.0f;
 
     private bool horizontalForce = false;
     private ForceDirection forceDirection = ForceDirection.Left;
@@ -71,6 +72,13 @@ public class Ball : MonoBehaviour
             // Sets horizontalForce to true and sets forceDirection to Right
             horizontalForce = true;
             forceDirection = ForceDirection.Right;
+        }
+
+        if (collision.gameObject.tag == "Spring")
+        {
+            // Add a force to the object in the direction the spring is pointing
+            print("Test");
+            rb.AddForce(collision.gameObject.transform.up * springForce, ForceMode2D.Impulse);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
