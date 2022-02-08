@@ -52,6 +52,11 @@ public class ClickAndDrag : MonoBehaviour
             // if it does, set overlapped object
             if (targetedObj)
             {
+                // TODO: don't select object if targetedObj is immovable despite having a Collider2D
+                //if ()
+                //{
+                    
+                //}
                 selectedObj = targetedObj.transform.gameObject;
             }
         }
