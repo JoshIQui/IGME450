@@ -20,6 +20,10 @@ public class ClickAndDrag : MonoBehaviour
     [SerializeField]
     private int gridHalfHeight = 10;
     [SerializeField]
+    private float originX = 0;
+    [SerializeField]
+    private float originY = 0;
+    [SerializeField]
     private GameObject gridCell;
 
     void Start()
@@ -28,7 +32,7 @@ public class ClickAndDrag : MonoBehaviour
         {
             for (int j = -gridHalfHeight; j <= gridHalfHeight; j++)
             {
-                Instantiate(gridCell, new Vector3(i * gridCellSize, j * gridCellSize, 0.1f), Quaternion.identity);
+                Instantiate(gridCell, new Vector3(i * gridCellSize + originX, j * gridCellSize + originY, 0.1f), Quaternion.identity);
             }
         }
     }
@@ -48,6 +52,11 @@ public class ClickAndDrag : MonoBehaviour
             // if it does, set overlapped object
             if (targetedObj)
             {
+                // TODO: don't select object if targetedObj is immovable despite having a Collider2D
+                //if ()
+                //{
+                    
+                //}
                 selectedObj = targetedObj.transform.gameObject;
             }
         }
