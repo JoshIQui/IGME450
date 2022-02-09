@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3834860608386410109}
   - component: {fileID: 3505468165786654766}
   m_Layer: 0
-  m_Name: GridCell
+  m_Name: GridPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

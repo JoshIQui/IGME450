@@ -898,7 +898,9 @@ MonoBehaviour:
   gridCellSize: 2
   gridHalfWidth: 10
   gridHalfHeight: 10
-  gridCell: {fileID: 1949420406068844874, guid: c7101426a2ed648458b879cc530a35c3, type: 3}
+  originX: 0
+  originY: 0
+  gridPoint: {fileID: 1949420406068844874, guid: c7101426a2ed648458b879cc530a35c3, type: 3}
 --- !u!4 &706278252
 Transform:
   m_ObjectHideFlags: 0
