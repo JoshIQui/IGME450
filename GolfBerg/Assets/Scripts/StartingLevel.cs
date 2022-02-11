@@ -8,9 +8,21 @@ public class StartingLevel : MonoBehaviour
 {
     public Button button1;
 
+    [SerializeField] private GameObject ball;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnClick();
+            print("test");
+        }
+    }
+
     public void OnClick()
     {
-        Debug.Log("start");
-        button1.enabled = false;
+        ball.SetActive(true);
+        ball.GetComponent<Ball>().ResetPosition();
+        gameObject.SetActive(false);
     }
 }

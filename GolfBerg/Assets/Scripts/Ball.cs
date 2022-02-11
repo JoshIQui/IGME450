@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum ForceDirection
 {
@@ -28,6 +29,8 @@ public class Ball : MonoBehaviour
 
         // Finally, set the object position to the start position
         rb.MovePosition(startPosition);
+
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,8 +53,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
-            //EndLevel();
-            print("Level End Here");
+            SceneManager.LoadScene("SampleScene");
         }
 
         if (collision.gameObject.tag == "InvertedGravity")
@@ -100,5 +102,10 @@ public class Ball : MonoBehaviour
             // Sets horizontalForce to false
             horizontalForce = false;
         }
+    }
+
+    public void ResetPosition()
+    {
+        rb.MovePosition(startPosition);
     }
 }
