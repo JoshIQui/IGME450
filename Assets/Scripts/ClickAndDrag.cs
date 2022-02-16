@@ -15,6 +15,8 @@ public class ClickAndDrag : MonoBehaviour
 {
     private GameObject selectedObj;
     [SerializeField]
+    private float selectedObjPrevPosX = 0;
+    private float selectedObjPrevPosY = 0;
     private float gridCellSize = 1;
     [SerializeField]
     private int gridHalfWidth = 10;
@@ -32,13 +34,6 @@ public class ClickAndDrag : MonoBehaviour
 
     void Start()
     {
-        for (int i = -gridHalfWidth; i <= gridHalfWidth; i++)
-        {
-            for (int j = -gridHalfHeight; j <= gridHalfHeight; j++)
-            {
-                Instantiate(gridPoint, new Vector3(i * gridCellSize + originX, j * gridCellSize + originY, 0.1f), Quaternion.identity);
-            }
-        }
     }
 
     public void DragHandler(BaseEventData data)
@@ -128,21 +123,34 @@ public class ClickAndDrag : MonoBehaviour
             
             // if it does, set overlapped object
             if (targetedObj)
-            {
+            {                
                 selectedObj = targetedObj.transform.gameObject;
-                // TODO: deselect object if selectedObj is immovable despite having a Collider2D
-                if (selectedObj.name == "Start" || selectedObj.name == "End" || selectedObj.name.Contains("immobile"))
-                    {
+                // deselect object if selectedObj is immovable despite having a Collider2D
+                if (selectedObj.name == "Start" || selectedObj.name == "End" || selectedObj.name.ToUpper().Contains("IMMOBILE"))
+                {
                     selectedObj = null;
+                }
+                // [NEW CODE]
+                // set previous position values to current values of selected object
+                else
+                {
+                    selectedObjPrevPosX = selectedObj.transform.position.x;
+                    selectedObjPrevPosY = selectedObj.transform.position.y;
                 }
             }
         }
         // if mouse button has been released and object is selected, deselect it
         if (Input.GetMouseButtonUp(0) && selectedObj)
         {
+            /*[OUTDATED CODE]
             // in place of a grid system, round position values to the nearest multiple of gridCellSize (current value is 1)
             float posX = Mathf.Round(selectedObj.transform.position.x / gridCellSize) * gridCellSize;
             float posY = Mathf.Round(selectedObj.transform.position.y / gridCellSize) * gridCellSize;
+            [OUTDATED CODE END]*/
+
+            // remove grid system rounding position values to multiples of gridCellSize
+            float posX = selectedObj.transform.position.x;
+            float posY = selectedObj.transform.position.y;            
             selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
 
             // check if object overlaps another object (get object center and box size)
@@ -151,6 +159,8 @@ public class ClickAndDrag : MonoBehaviour
             List<Collider2D> results = new List<Collider2D>();
             ContactFilter2D filter = new ContactFilter2D();
             int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+
+            /*[OUTDATED CODE]
             // if it does, move it up/right/down/left by a multiple of gridCellSize
             int cellSizeMultiple = 1;
             Directions direction = Directions.Up;
@@ -193,6 +203,15 @@ public class ClickAndDrag : MonoBehaviour
                 // check if new position collides with anything before setting new position
                 numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
                 Debug.Log(numOfCollisions);
+            }
+            [OUTDATED CODE END]*/
+
+            // if it does, snap object back to original position
+            Debug.Log(numOfCollisions);
+            if ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+            {
+                posX = selectedObjPrevPosX;
+                posY = selectedObjPrevPosY;
             }
             selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
 
