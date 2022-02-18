@@ -9,6 +9,7 @@ TagManager:
   - RightForce
   - Spring
   - LeftForce
+  - Star
   layers:
   - Default
   - TransparentFX

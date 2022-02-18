@@ -21,6 +21,8 @@ public class Ball : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private int stars = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +55,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         if (collision.gameObject.tag == "InvertedGravity")
@@ -82,6 +84,13 @@ public class Ball : MonoBehaviour
             rb.velocity = new Vector2(0, 0);
             rb.AddForce(collision.gameObject.transform.up * springForce, ForceMode2D.Impulse);
         }
+
+        if (collision.gameObject.tag == "Star")
+        {
+            stars++;
+            Destroy(collision.gameObject);
+            print("Star collected");
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -102,6 +111,12 @@ public class Ball : MonoBehaviour
             // Sets horizontalForce to false
             horizontalForce = false;
         }
+    }
+
+    //RESTART THE LEVEL IF THE OBJECT LEAVES THE SCREEN
+    private void OnBecameInvisible()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ResetPosition()
