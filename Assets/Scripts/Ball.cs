@@ -49,6 +49,10 @@ public class Ball : MonoBehaviour
             // Movement
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
+        if(gameObject.transform.position.y < -10)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -114,10 +118,10 @@ public class Ball : MonoBehaviour
     }
 
     //RESTART THE LEVEL IF THE OBJECT LEAVES THE SCREEN
-    private void OnBecameInvisible()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    //private void OnBecameInvisible()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 
     public void ResetPosition()
     {

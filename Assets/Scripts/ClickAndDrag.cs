@@ -32,6 +32,29 @@ public class ClickAndDrag : MonoBehaviour
     [SerializeField]
     private Canvas canvas;
 
+    private bool canBuild = false;
+    private void Awake()
+    {
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameManager.GameState obj)
+    {
+        if (obj == GameManager.GameState.Building)
+        {
+            canBuild = true;
+        }
+        else
+        {
+            canBuild = false;
+        }
+    }
+    
     void Start()
     {
     }
@@ -112,115 +135,118 @@ public class ClickAndDrag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // get mouse position
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        // check if mouse button has just been pressed
-        if (Input.GetMouseButtonDown(0))
+        if (canBuild)
         {
-            // check if mouse cursor overlaps object
-            Collider2D targetedObj = Physics2D.OverlapPoint(mousePos);
-            
-            // if it does, set overlapped object
-            if (targetedObj)
-            {                
-                selectedObj = targetedObj.transform.gameObject;
-                // deselect object if selectedObj is immovable despite having a Collider2D
-                if (selectedObj.name == "Start" || selectedObj.name == "End" || selectedObj.name.ToUpper().Contains("IMMOBILE"))
+            // get mouse position
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            // check if mouse button has just been pressed
+            if (Input.GetMouseButtonDown(0))
+            {
+                // check if mouse cursor overlaps object
+                Collider2D targetedObj = Physics2D.OverlapPoint(mousePos);
+
+                // if it does, set overlapped object
+                if (targetedObj)
                 {
-                    selectedObj = null;
-                }
-                // [NEW CODE]
-                // set previous position values to current values of selected object
-                else
-                {
-                    selectedObjPrevPosX = selectedObj.transform.position.x;
-                    selectedObjPrevPosY = selectedObj.transform.position.y;
+                    selectedObj = targetedObj.transform.gameObject;
+                    // deselect object if selectedObj is immovable despite having a Collider2D
+                    if (selectedObj.name == "Start" || selectedObj.name == "End" || selectedObj.name.ToUpper().Contains("IMMOBILE"))
+                    {
+                        selectedObj = null;
+                    }
+                    // [NEW CODE]
+                    // set previous position values to current values of selected object
+                    else
+                    {
+                        selectedObjPrevPosX = selectedObj.transform.position.x;
+                        selectedObjPrevPosY = selectedObj.transform.position.y;
+                    }
                 }
             }
-        }
-        // if mouse button has been released and object is selected, deselect it
-        if (Input.GetMouseButtonUp(0) && selectedObj)
-        {
-            /*[OUTDATED CODE]
-            // in place of a grid system, round position values to the nearest multiple of gridCellSize (current value is 1)
-            float posX = Mathf.Round(selectedObj.transform.position.x / gridCellSize) * gridCellSize;
-            float posY = Mathf.Round(selectedObj.transform.position.y / gridCellSize) * gridCellSize;
-            [OUTDATED CODE END]*/
-
-            // remove grid system rounding position values to multiples of gridCellSize
-            float posX = selectedObj.transform.position.x;
-            float posY = selectedObj.transform.position.y;            
-            selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
-
-            // check if object overlaps another object (get object center and box size)
-            Collider2D selectedObjCollider = selectedObj.GetComponent<Collider2D>();
-            Vector2 size = selectedObjCollider.bounds.size;
-            List<Collider2D> results = new List<Collider2D>();
-            ContactFilter2D filter = new ContactFilter2D();
-            int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
-
-            /*[OUTDATED CODE]
-            // if it does, move it up/right/down/left by a multiple of gridCellSize
-            int cellSizeMultiple = 1;
-            Directions direction = Directions.Up;
-            Debug.Log(numOfCollisions);
-            while ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+            // if mouse button has been released and object is selected, deselect it
+            if (Input.GetMouseButtonUp(0) && selectedObj)
             {
-                // reset position values
-                posX = selectedObj.transform.position.x;
-                posY = selectedObj.transform.position.y;
+                /*[OUTDATED CODE]
+                // in place of a grid system, round position values to the nearest multiple of gridCellSize (current value is 1)
+                float posX = Mathf.Round(selectedObj.transform.position.x / gridCellSize) * gridCellSize;
+                float posY = Mathf.Round(selectedObj.transform.position.y / gridCellSize) * gridCellSize;
+                [OUTDATED CODE END]*/
 
-                // move by the correct multiple in the correct direction
-                switch (direction)
-                {
-                    case Directions.Up:
-                        Debug.Log("object shifted up " + gridCellSize);
-                        posY += cellSizeMultiple * gridCellSize;
-                        break;
-                    case Directions.Right:
-                        Debug.Log("object shifted right " + gridCellSize);
-                        posX += cellSizeMultiple * gridCellSize;
-                        break;
-                    case Directions.Down:
-                        Debug.Log("object shifted down " + gridCellSize);
-                        posY -= cellSizeMultiple * gridCellSize;
-                        break;
-                    case Directions.Left:
-                        Debug.Log("object shifted left " + gridCellSize);
-                        posX -= cellSizeMultiple * gridCellSize;                        
-                        break;
-                }
-                direction++;
-                if (direction > Directions.Left)
-                {
-                    direction = Directions.Up;
-                    // if none of these four directions worked, move object over two units instead of one
-                    // keep incrementing until it works in a direction
-                    cellSizeMultiple++;
-                }
+                // remove grid system rounding position values to multiples of gridCellSize
+                float posX = selectedObj.transform.position.x;
+                float posY = selectedObj.transform.position.y;
+                selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
 
-                // check if new position collides with anything before setting new position
-                numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+                // check if object overlaps another object (get object center and box size)
+                Collider2D selectedObjCollider = selectedObj.GetComponent<Collider2D>();
+                Vector2 size = selectedObjCollider.bounds.size;
+                List<Collider2D> results = new List<Collider2D>();
+                ContactFilter2D filter = new ContactFilter2D();
+                int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+
+                /*[OUTDATED CODE]
+                // if it does, move it up/right/down/left by a multiple of gridCellSize
+                int cellSizeMultiple = 1;
+                Directions direction = Directions.Up;
                 Debug.Log(numOfCollisions);
-            }
-            [OUTDATED CODE END]*/
+                while ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+                {
+                    // reset position values
+                    posX = selectedObj.transform.position.x;
+                    posY = selectedObj.transform.position.y;
 
-            // if it does, snap object back to original position
-            Debug.Log(numOfCollisions);
-            if ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+                    // move by the correct multiple in the correct direction
+                    switch (direction)
+                    {
+                        case Directions.Up:
+                            Debug.Log("object shifted up " + gridCellSize);
+                            posY += cellSizeMultiple * gridCellSize;
+                            break;
+                        case Directions.Right:
+                            Debug.Log("object shifted right " + gridCellSize);
+                            posX += cellSizeMultiple * gridCellSize;
+                            break;
+                        case Directions.Down:
+                            Debug.Log("object shifted down " + gridCellSize);
+                            posY -= cellSizeMultiple * gridCellSize;
+                            break;
+                        case Directions.Left:
+                            Debug.Log("object shifted left " + gridCellSize);
+                            posX -= cellSizeMultiple * gridCellSize;                        
+                            break;
+                    }
+                    direction++;
+                    if (direction > Directions.Left)
+                    {
+                        direction = Directions.Up;
+                        // if none of these four directions worked, move object over two units instead of one
+                        // keep incrementing until it works in a direction
+                        cellSizeMultiple++;
+                    }
+
+                    // check if new position collides with anything before setting new position
+                    numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+                    Debug.Log(numOfCollisions);
+                }
+                [OUTDATED CODE END]*/
+
+                // if it does, snap object back to original position
+                Debug.Log(numOfCollisions);
+                if ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+                {
+                    posX = selectedObjPrevPosX;
+                    posY = selectedObjPrevPosY;
+                }
+                selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
+
+                selectedObj = null;
+            }
+            // regardless of whether mouse button has just been pressed/released, set selectedObj position if there is one
+            if (selectedObj)
             {
-                posX = selectedObjPrevPosX;
-                posY = selectedObjPrevPosY;
+                selectedObj.transform.position = new Vector3(mousePos.x, mousePos.y, selectedObj.transform.position.z);
             }
-            selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
-
-            selectedObj = null;
-        }
-        // regardless of whether mouse button has just been pressed/released, set selectedObj position if there is one
-        if (selectedObj)
-        {
-            selectedObj.transform.position = new Vector3(mousePos.x, mousePos.y, selectedObj.transform.position.z);
         }
     }
 }

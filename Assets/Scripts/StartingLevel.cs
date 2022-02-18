@@ -10,14 +10,34 @@ public class StartingLevel : MonoBehaviour
 
     [SerializeField] private GameObject ball;
 
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameManager.GameState obj)
+    {
+        if(obj == GameManager.GameState.Live)
         {
-            OnClick();
-            print("test");
+            ball.SetActive(true);
+            ball.GetComponent<Ball>().ResetPosition();
+            gameObject.SetActive(false);
         }
     }
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        OnClick();
+    //        print("test");
+    //    }
+    //}
 
     public void OnClick()
     {
