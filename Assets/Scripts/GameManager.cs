@@ -28,7 +28,14 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            UpdateGameState(GameState.Live);
+            if (state == GameState.Building)
+            {
+                UpdateGameState(GameState.Live);
+            }
+            else if (state == GameState.Live)
+            {
+                UpdateGameState(GameState.Building);
+            }
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -46,7 +53,7 @@ public class GameManager : MonoBehaviour
             case GameState.Live:
                 ball.SetActive(true);
                 ball.GetComponent<Ball>().ResetPosition();
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
                 break;
             case GameState.End:
                 break;
