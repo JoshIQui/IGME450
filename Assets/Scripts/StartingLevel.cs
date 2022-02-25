@@ -28,6 +28,10 @@ public class StartingLevel : MonoBehaviour
             ball.GetComponent<Ball>().ResetPosition();
             gameObject.SetActive(false);
         }
+        else if (obj == GameManager.GameState.Building)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     //private void Update()

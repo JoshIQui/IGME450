@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour
         switch(newState)
         {
             case GameState.Building:
+                if (ball.activeSelf)
+                {
+                    ball.SetActive(false);
+                }
                 break;
             case GameState.Live:
                 ball.SetActive(true);
