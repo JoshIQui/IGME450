@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject ball;
 
+    private bool sceneReset = true;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateGameState(GameState.Building);
+        sceneReset = false;
     }
 
     // Update is called once per frame
@@ -49,8 +52,10 @@ public class GameManager : MonoBehaviour
         switch(newState)
         {
             case GameState.Building:
-                if (ball.activeSelf)
+                if (!sceneReset)
                 {
+                    ball.SetActive(true);
+                    ball.GetComponent<Ball>().ResetPosition();
                     ball.SetActive(false);
                 }
                 break;
