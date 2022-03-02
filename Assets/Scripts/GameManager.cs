@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
             }
             else if (state == GameState.Live)
             {
+                ball.GetComponent<Ball>().ResetPosition();
                 UpdateGameState(GameState.Building);
             }
         }
