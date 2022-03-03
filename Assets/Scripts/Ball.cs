@@ -30,7 +30,8 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         // Finally, set the object position to the start position
-        rb.MovePosition(startPosition);
+        //rb.MovePosition(startPosition);
+        rb.position = startPosition;
 
         gameObject.SetActive(false);
     }
@@ -125,6 +126,7 @@ public class Ball : MonoBehaviour
 
     public void ResetPosition()
     {
-        rb.MovePosition(startPosition);
+        //rb.MovePosition(startPosition);
+        rb.position = startPosition;
     }
 }
