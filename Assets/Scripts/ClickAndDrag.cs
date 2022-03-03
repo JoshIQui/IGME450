@@ -151,7 +151,7 @@ public class ClickAndDrag : MonoBehaviour
                 {
                     selectedObj = targetedObj.transform.gameObject;
                     // deselect object if selectedObj is immovable despite having a Collider2D
-                    if (selectedObj.name == "Start" || selectedObj.name == "End" || selectedObj.name.ToUpper().Contains("IMMOBILE"))
+                    if (selectedObj.name == "Start" || selectedObj.name == "End" || selectedObj.name.ToUpper().Contains("IMMOBILE") || selectedObj.name.ToUpper().Contains("UI_"))
                     {
                         selectedObj = null;
                     }
