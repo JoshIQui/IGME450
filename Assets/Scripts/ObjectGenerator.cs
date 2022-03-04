@@ -22,6 +22,9 @@ public class ObjectGenerator : MonoBehaviour
 
     public void CreateObject()
     {
-        clickAndDragManager.AttachToMouse(Instantiate(prefab, transform.position, transform.rotation));
+        if(transform.parent.gameObject.GetComponent<ItemCounter>().ReduceCounter())
+        {
+            clickAndDragManager.AttachToMouse(Instantiate(prefab, transform.position, transform.rotation));
+        }
     }
 }
