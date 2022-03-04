@@ -6,12 +6,12 @@ public class ObjectGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
 
-    [SerializeField] private ClickAndDrag clickAndDragManager;
+    private ClickAndDrag clickAndDragManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        clickAndDragManager = GameObject.Find("ClickAndDragManager").GetComponent<ClickAndDrag>();
     }
 
     // Update is called once per frame
