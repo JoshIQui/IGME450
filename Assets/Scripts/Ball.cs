@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour
     [SerializeField] private float horizontalForceVelocty = 5.0f;
     [SerializeField] private float springForce = 10.0f;
 
+    [SerializeField] private int nextLevelIndex;
+
     private bool horizontalForce = false;
     private ForceDirection forceDirection = ForceDirection.Left;
 
@@ -60,7 +62,8 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Level" + nextLevelIndex);
         }
 
         if (collision.gameObject.tag == "InvertedGravity")

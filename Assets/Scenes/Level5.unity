@@ -308,7 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8612339443754754641, guid: d64b8c38edc35fb438112ab0ea19dfd5, type: 3}
-  clickAndDragManager: {fileID: 0}
 --- !u!114 &199115563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,6 +793,10 @@ PrefabInstance:
     - target: {fileID: 6720379628217684305, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720379628217684307, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
+      propertyPath: nextLevelIndex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6720379628217684307, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
       propertyPath: horizontalForceVelocty
