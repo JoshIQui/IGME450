@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour
         }
         if(gameObject.transform.position.y < -10)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager.instance.UpdateGameState(GameManager.GameState.Building);
         }
     }
 

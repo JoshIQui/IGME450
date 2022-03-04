@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76db07aa43f00c1459aa18f5642782c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 3
 --- !u!1 &2157958259408793887
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +547,7 @@ GameObject:
   - component: {fileID: 809782326693722186}
   - component: {fileID: 7937063145308614096}
   - component: {fileID: 4270435674716256276}
+  - component: {fileID: 5192916621772952406}
   m_Layer: 5
   m_Name: TiltedSpring
   m_TagString: Untagged
@@ -615,3 +617,16 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 3
+--- !u!114 &5192916621772952406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322716901024370161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76db07aa43f00c1459aa18f5642782c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  count: 3

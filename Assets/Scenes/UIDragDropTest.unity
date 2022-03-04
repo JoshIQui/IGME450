@@ -174,6 +174,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6720379628217684307, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6720379628217684309, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
       propertyPath: m_Name
       value: Immobile Ball
@@ -586,6 +590,30 @@ PrefabInstance:
       propertyPath: clickAndDragManager
       value: 
       objectReference: {fileID: 1148766622}
+    - target: {fileID: 3432824938758486443, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432824938758486443, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432824938758486443, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432824938758486443, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432824938758486443, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432824938758486443, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4859023488448080629, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: m_Name
       value: InventoryCanvas

@@ -246,7 +246,6 @@ public class ClickAndDrag : MonoBehaviour
             if (selectedObj)
             {
                 selectedObj.transform.position = new Vector3(mousePos.x, mousePos.y, selectedObj.transform.position.z);
-                print("Test");
             }
         }
     }
