@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static event Action<GameState> OnGameStateChanged;
 
     [SerializeField] private GameObject ball;
+    private GameObject[] stars;
 
     private bool sceneReset = true;
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateGameState(GameState.Building);
         sceneReset = false;
+        stars = GameObject.FindGameObjectsWithTag("Star");
     }
 
     // Update is called once per frame
@@ -58,6 +60,10 @@ public class GameManager : MonoBehaviour
                     ball.SetActive(true);
                     ball.GetComponent<Ball>().ResetPosition();
                     ball.SetActive(false);
+                    foreach (GameObject star in stars)
+                    {
+                        star.SetActive(true);
+                    }
                 }
                 break;
             case GameState.Live:

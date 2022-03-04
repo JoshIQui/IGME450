@@ -96,7 +96,7 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "Star")
         {
             stars++;
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             print("Star collected");
         }
     }
