@@ -168,10 +168,12 @@ public class ClickAndDrag : MonoBehaviour
             // if mouse button has been released and object is selected, deselect it
             if (Input.GetMouseButtonUp(0) && selectedObj)
             {
+                // replace this logic with using list of objects and checking their collision
                 // remove grid system rounding position values to multiples of gridCellSize
+                /*
                 float posX = selectedObj.transform.position.x;
                 float posY = selectedObj.transform.position.y;
-                selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
+                //selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
 
                 // check if object overlaps another object (get object center and box size)
                 Collider2D selectedObjCollider = selectedObj.GetComponent<Collider2D>();
@@ -186,8 +188,37 @@ public class ClickAndDrag : MonoBehaviour
                 {
                     posX = selectedObjPrevPosX;
                     posY = selectedObjPrevPosY;
+                    selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
+                }*/
+                GameManager.objectsColliding = false;
+                for (int currentObjIndex = 0; currentObjIndex < movableObjectList.Count; currentObjIndex++)
+                {
+                    float posX = movableObjectList[currentObjIndex].transform.position.x;
+                    float posY = movableObjectList[currentObjIndex].transform.position.y;
+                    Collider2D selectedObjCollider = movableObjectList[currentObjIndex].GetComponent<Collider2D>();
+                    Vector2 size = selectedObjCollider.bounds.size;
+                    List<Collider2D> results = new List<Collider2D>();
+                    ContactFilter2D filter = new ContactFilter2D();
+                    int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+                    if ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+                    {
+                        Debug.Log("object collision detected");
+                        movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.red;
+
+                        GameManager.objectsColliding = true;
+                    }
+                    else
+                    {
+                        movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    }
+
+                    /*for (int comparedObjIndex = currentObjIndex + 1; comparedObjIndex < movableObjectList.Count; comparedObjIndex++)
+                    {
+                        // check if objects overlap
+                        GameObject firstObj = movableObjectList[currentObjIndex];
+                        GameObject secondObj = movableObjectList[comparedObjIndex];
+                    }*/
                 }
-                selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
 
                 selectedObj = null;
             }
