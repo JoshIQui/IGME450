@@ -17,14 +17,18 @@ public class ObjectGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void CreateObject()
     {
         if(transform.parent.gameObject.GetComponent<ItemCounter>().ReduceCounter())
         {
-            clickAndDragManager.AttachToMouse(Instantiate(prefab, transform.position, transform.rotation));
+            // clickAndDragManager.AttachToMouse(Instantiate(prefab, transform.position, transform.rotation));
+            GameObject newObj = Instantiate(prefab, transform.position, transform.rotation);
+            clickAndDragManager.AttachToMouse(newObj);
+            clickAndDragManager.movableObjectList.Add(newObj);
+            Debug.Log("Count: " + clickAndDragManager.movableObjectList.Count);
         }
     }
 }
