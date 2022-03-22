@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private bool sceneReset = true;
 
-    public static bool objectsColliding = false;
+    public static bool liveModeDisabled = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            if (state == GameState.Building && !objectsColliding)
+            if (state == GameState.Building && !liveModeDisabled)
             {
                 UpdateGameState(GameState.Live);
             }

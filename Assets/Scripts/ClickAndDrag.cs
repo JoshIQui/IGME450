@@ -162,6 +162,8 @@ public class ClickAndDrag : MonoBehaviour
                     {
                         selectedObjPrevPosX = selectedObj.transform.position.x;
                         selectedObjPrevPosY = selectedObj.transform.position.y;
+
+                        GameManager.liveModeDisabled = true;
                     }
                 }
             }
@@ -190,7 +192,7 @@ public class ClickAndDrag : MonoBehaviour
                     posY = selectedObjPrevPosY;
                     selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
                 }*/
-                GameManager.objectsColliding = false;
+                GameManager.liveModeDisabled = false;
                 for (int currentObjIndex = 0; currentObjIndex < movableObjectList.Count; currentObjIndex++)
                 {
                     float posX = movableObjectList[currentObjIndex].transform.position.x;
@@ -205,7 +207,7 @@ public class ClickAndDrag : MonoBehaviour
                         Debug.Log("object collision detected");
                         movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.red;
 
-                        GameManager.objectsColliding = true;
+                        GameManager.liveModeDisabled = true;
                     }
                     else
                     {
