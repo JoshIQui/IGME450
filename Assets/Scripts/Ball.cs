@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour
             // Movement
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
-        if(gameObject.transform.position.y < -10)
+        if (gameObject.transform.position.y < -10)
         {
             GameManager.instance.UpdateGameState(GameManager.GameState.Building);
         }
@@ -62,8 +62,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene("Level" + nextLevelIndex);
+            GameManager.instance.UpdateGameState(GameManager.GameState.End);
         }
 
         if (collision.gameObject.tag == "InvertedGravity")
@@ -131,5 +130,10 @@ public class Ball : MonoBehaviour
     {
         //rb.MovePosition(startPosition);
         rb.position = startPosition;
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene("Level" + nextLevelIndex);
     }
 }

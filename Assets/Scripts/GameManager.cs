@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameState state;
+    private GameState beforePausedState;
     public static event Action<GameState> OnGameStateChanged;
+    public GameObject finishPanel;
+    public GameObject pausePanel;
 
     [SerializeField] private GameObject ball;
     private GameObject[] stars;
@@ -25,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("reset");
         UpdateGameState(GameState.Building);
         sceneReset = false;
         stars = GameObject.FindGameObjectsWithTag("Star");
@@ -33,7 +37,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.P) && state != GameState.Pause && state != GameState.End)
         {
             if (state == GameState.Building && !liveModeDisabled)
             {
@@ -45,10 +49,26 @@ public class GameManager : MonoBehaviour
                 UpdateGameState(GameState.Building);
             }
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && state != GameState.Pause && state != GameState.End)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        if (Input.GetKeyDown(KeyCode.Escape) && state != GameState.Pause && state != GameState.End)
+        {
+            beforePausedState = state;
+            UpdateGameState(GameState.Pause);
+        }
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void UnPause()
+    {
+        pausePanel.SetActive(false);
+        UpdateGameState(beforePausedState);
     }
 
     public void UpdateGameState(GameState newState)
@@ -71,9 +91,14 @@ public class GameManager : MonoBehaviour
             case GameState.Live:
                 ball.SetActive(true);
                 ball.GetComponent<Ball>().ResetPosition();
-                //gameObject.SetActive(false);
+                break;
+            case GameState.Pause:
+                ball.SetActive(false);
+                pausePanel.SetActive(true);
                 break;
             case GameState.End:
+                ball.SetActive(false);
+                finishPanel.gameObject.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -86,6 +111,7 @@ public class GameManager : MonoBehaviour
     {
         Building,
         Live,
+        Pause,
         End
     }
 }
