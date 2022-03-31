@@ -79,11 +79,19 @@ public class Ball : MonoBehaviour
             try
             {
                 StreamWriter output = new StreamWriter("UnlockedLevels.txt");
-                string level = "Level" + nextLevelIndex;
-                if (!alreadyUnlockedLevels.Contains(level))
-                { 
-                    output.WriteLine(level);
-                    Debug.Log(level);
+                foreach (string unlockedlevel in alreadyUnlockedLevels) 
+                {
+                    output.WriteLine(unlockedlevel);
+                    Debug.Log(unlockedlevel);
+                }
+                if (nextLevelIndex != 1)
+                {
+                    string level = "Level" + nextLevelIndex;
+                    if (!alreadyUnlockedLevels.Contains(level))
+                    {
+                        output.WriteLine(level);
+                        Debug.Log(level);
+                    }
                 }
                 output.Close();
             }
