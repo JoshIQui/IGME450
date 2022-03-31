@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.End:
                 ball.SetActive(false);
-                finishPanel.gameObject.SetActive(true);
+                //finishPanel.gameObject.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

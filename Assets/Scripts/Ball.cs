@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 enum ForceDirection
 {
@@ -62,6 +63,32 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
+            List<string> alreadyUnlockedLevels = new List<string>();
+            try
+            {
+                StreamReader input = new StreamReader("UnlockedLevels.txt");
+                string line = null;
+                while ((line = input.ReadLine()) != null)
+                {
+                    alreadyUnlockedLevels.Add(line);
+                }
+                input.Close();
+            }
+            catch { }
+
+            try
+            {
+                StreamWriter output = new StreamWriter("UnlockedLevels.txt");
+                string level = "Level" + nextLevelIndex;
+                if (!alreadyUnlockedLevels.Contains(level))
+                { 
+                    output.WriteLine(level);
+                    Debug.Log(level);
+                }
+                output.Close();
+            }
+            catch { }
+
             GameManager.instance.UpdateGameState(GameManager.GameState.End);
         }
 

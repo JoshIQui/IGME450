@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.IO;
 
 public class LevelSelect : MonoBehaviour
 {
@@ -14,17 +16,23 @@ public class LevelSelect : MonoBehaviour
     void Start()
     {
         // get list of unlocked levels (for now, manually add placeholders)
-        unlockedLevels.Add("Level-2");
-        unlockedLevels.Add("Level-3");
-        unlockedLevels.Add("Level-4");
-        unlockedLevels.Add("Level-5");
-        unlockedLevels.Add("Level-6");
+        try {
+            StreamReader input = new StreamReader("UnlockedLevels.txt");
+            string line = null;
+            while ((line = input.ReadLine()) != null)
+            {
+                unlockedLevels.Add(line);
+            }
+            input.Close();
+        }
+        catch { }
 
         // get position of original button
         float originalButtonPosY = level1Button.GetComponent<RectTransform>().anchoredPosition.y;
         float buttonGapDistance = originalButtonPosY;
 
         // add onclick function to original button
+        level1Button.GetComponent<Button>().onClick.AddListener(delegate { btnClicked("Level1"); });
 
         // loop through unlocked list and instantiate buttons for all of them (as children of content)
         int iteration = 1;
@@ -32,20 +40,23 @@ public class LevelSelect : MonoBehaviour
         {
             // create button and set text
             GameObject newButton = Instantiate(level1Button, content.transform);
-            newButton.GetComponentInChildren<Text>().text = string.Join(" ", level.Split('-'));
+            newButton.GetComponentInChildren<Text>().text = string.Join("l ", level.Split('l'));
 
             // set position of new button
             newButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, (originalButtonPosY + buttonGapDistance * buttonGapMultiplier * iteration), 0);
 
             // add onclick function to new button
+            newButton.GetComponent<Button>().onClick.AddListener(delegate { btnClicked(level); });
 
             iteration++;
-
-            Debug.Log(originalButtonPosY);
-            Debug.Log(buttonGapDistance * buttonGapMultiplier * iteration);
         }
 
         content.GetComponent<RectTransform>().sizeDelta = new Vector2(400, -originalButtonPosY * buttonGapMultiplier * iteration + 10);
+    }
+
+    void btnClicked(string levelSceneName)
+    {
+        SceneManager.LoadScene(levelSceneName);
     }
 
     // Update is called once per frame
