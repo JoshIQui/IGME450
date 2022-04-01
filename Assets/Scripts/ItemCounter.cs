@@ -12,6 +12,12 @@ public class ItemCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Destroys the object if there are none available on load
+        if (count < 1)
+        {
+            Destroy(gameObject);
+        }
+
         countText = GetComponent<Text>();
         countText.text = count.ToString();
     }

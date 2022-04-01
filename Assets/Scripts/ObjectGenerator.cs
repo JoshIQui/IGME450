@@ -28,7 +28,7 @@ public class ObjectGenerator : MonoBehaviour
             GameObject newObj = Instantiate(prefab, transform.position, transform.rotation);
             clickAndDragManager.AttachToMouse(newObj);
             clickAndDragManager.movableObjectList.Add(newObj);
-            Debug.Log("Count: " + clickAndDragManager.movableObjectList.Count);
+            //Debug.Log("Count: " + clickAndDragManager.movableObjectList.Count);
         }
     }
 }

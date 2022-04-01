@@ -17,6 +17,8 @@ public class Ball : MonoBehaviour
 
     [SerializeField] private int nextLevelIndex;
 
+    [SerializeField] private StarCounter starCounter;
+
     private bool horizontalForce = false;
     private ForceDirection forceDirection = ForceDirection.Left;
 
@@ -131,7 +133,8 @@ public class Ball : MonoBehaviour
         {
             stars++;
             collision.gameObject.SetActive(false);
-            print("Star collected");
+            starCounter.IncreaseStarCount();
+            //print("Star collected");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

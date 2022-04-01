@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ball;
     private GameObject[] stars;
 
+    [SerializeField] private StarCounter starCounter;
+
     private bool sceneReset = true;
 
     public static bool liveModeDisabled = false;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         UpdateGameState(GameState.Building);
         sceneReset = false;
         stars = GameObject.FindGameObjectsWithTag("Star");
+        starCounter = GameObject.Find("StarCounter").GetComponentInChildren<StarCounter>();
     }
 
     // Update is called once per frame
@@ -65,6 +68,22 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void Play()
+    {
+        if (state != GameState.Pause && state != GameState.End)
+        {
+            if (state == GameState.Building && !liveModeDisabled)
+            {
+                UpdateGameState(GameState.Live);
+            }
+            else if (state == GameState.Live)
+            {
+                ball.GetComponent<Ball>().ResetPosition();
+                UpdateGameState(GameState.Building);
+            }
+        }
+    }
+
     public void UnPause()
     {
         pausePanel.SetActive(false);
@@ -86,6 +105,7 @@ public class GameManager : MonoBehaviour
                     {
                         star.SetActive(true);
                     }
+                    starCounter.ResetStarCount();
                 }
                 break;
             case GameState.Live:
