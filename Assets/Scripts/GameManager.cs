@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
         switch(newState)
         {
             case GameState.Building:
+                finishPanel.SetActive(false);
                 if (!sceneReset)
                 {
                     ball.SetActive(true);
@@ -109,16 +110,18 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Live:
+                finishPanel.SetActive(false);
                 ball.SetActive(true);
                 ball.GetComponent<Ball>().ResetPosition();
                 break;
             case GameState.Pause:
+                finishPanel.SetActive(false);
                 ball.SetActive(false);
                 pausePanel.SetActive(true);
                 break;
             case GameState.End:
                 ball.SetActive(false);
-                //finishPanel.gameObject.SetActive(true);
+                finishPanel.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -126,6 +129,12 @@ public class GameManager : MonoBehaviour
 
         OnGameStateChanged?.Invoke(newState);
     }
+
+    public void LevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelect");
+    }
+
 
     public enum GameState
     {

@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class StartingLevel : MonoBehaviour
 {
-    public Button button1;
-
     [SerializeField] private GameObject ball;
 
     private void Awake()
