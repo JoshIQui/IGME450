@@ -65,37 +65,59 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
-            List<string> alreadyUnlockedLevels = new List<string>();
+            //List<string> alreadyUnlockedLevels = new List<string>();
+            string unlockedLevels = "";
             try
             {
-                StreamReader input = new StreamReader("UnlockedLevels.txt");
+                /* StreamReader input = new StreamReader("UnlockedLevels.txt");
                 string line = null;
                 while ((line = input.ReadLine()) != null)
                 {
                     alreadyUnlockedLevels.Add(line);
                 }
                 input.Close();
+                */
+
+                unlockedLevels = PlayerPrefs.GetString("IGME450_UnlockedLevels", "");
             }
             catch { }
 
             try
             {
-                StreamWriter output = new StreamWriter("UnlockedLevels.txt");
+                /*StreamWriter output = new StreamWriter("UnlockedLevels.txt");
+                string unlockedLevels = "";
                 foreach (string unlockedlevel in alreadyUnlockedLevels) 
                 {
                     output.WriteLine(unlockedlevel);
                     Debug.Log(unlockedlevel);
                 }
+                */
                 if (nextLevelIndex != 1)
                 {
                     string level = "Level" + nextLevelIndex;
-                    if (!alreadyUnlockedLevels.Contains(level))
+                    /*if (!alreadyUnlockedLevels.Contains(level))
+                    if (!unlockedLevels.Contains(level))
                     {
-                        output.WriteLine(level);
-                        Debug.Log(level);
+                        //output.WriteLine(level);
+                        //Debug.Log(level);
+                        unlockedLevels += level;
+                    }
+                    */
+                    if (unlockedLevels == "")
+                    {
+                        unlockedLevels += level;
+                    }
+                    else
+                    {
+                        unlockedLevels += "," + level;
                     }
                 }
-                output.Close();
+                //output.Close();
+
+                if (unlockedLevels != "")
+                {
+                    PlayerPrefs.SetString("IGME450_UnlockedLevels", unlockedLevels);
+                }
             }
             catch { }
 
