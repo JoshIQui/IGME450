@@ -199,7 +199,45 @@ public class ClickAndDrag : MonoBehaviour
                     posY = selectedObjPrevPosY;
                     selectedObj.transform.position = new Vector3(posX, posY, selectedObj.transform.position.z);
                 }*/
+
+                /*
+                GameManager.liveModeDisabled = false;                
+                for (int currentObjIndex = 0; currentObjIndex < movableObjectList.Count; currentObjIndex++)
+                {
+                    float posX = movableObjectList[currentObjIndex].transform.position.x;
+                    float posY = movableObjectList[currentObjIndex].transform.position.y;
+                    Collider2D selectedObjCollider = movableObjectList[currentObjIndex].GetComponent<Collider2D>();
+                    Vector2 size = selectedObjCollider.bounds.size;
+                    List<Collider2D> results = new List<Collider2D>();
+                    ContactFilter2D filter = new ContactFilter2D();
+                    int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+                    if ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+                    {
+                        Debug.Log("object collision detected");
+                        movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.red;
+
+                        GameManager.liveModeDisabled = true;
+                    }
+                    else
+                    {
+                        movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    }
+
+                    /*for (int comparedObjIndex = currentObjIndex + 1; comparedObjIndex < movableObjectList.Count; comparedObjIndex++)
+                    {
+                        // check if objects overlap
+                        GameObject firstObj = movableObjectList[currentObjIndex];
+                        GameObject secondObj = movableObjectList[comparedObjIndex];
+                    }
+                }*/
+
+                selectedObj = null;
+            }
+            // regardless of whether mouse button has just been pressed/released, set selectedObj position if there is one
+            if (selectedObj)
+            {
                 GameManager.liveModeDisabled = false;
+                selectedObj.transform.position = new Vector3(mousePos.x, mousePos.y, selectedObj.transform.position.z);
                 for (int currentObjIndex = 0; currentObjIndex < movableObjectList.Count; currentObjIndex++)
                 {
                     float posX = movableObjectList[currentObjIndex].transform.position.x;
@@ -228,13 +266,6 @@ public class ClickAndDrag : MonoBehaviour
                         GameObject secondObj = movableObjectList[comparedObjIndex];
                     }*/
                 }
-
-                selectedObj = null;
-            }
-            // regardless of whether mouse button has just been pressed/released, set selectedObj position if there is one
-            if (selectedObj)
-            {
-                selectedObj.transform.position = new Vector3(mousePos.x, mousePos.y, selectedObj.transform.position.z);
             }
         }
     }
