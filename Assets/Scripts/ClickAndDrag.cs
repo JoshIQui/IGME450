@@ -157,11 +157,18 @@ public class ClickAndDrag : MonoBehaviour
                     {
                         selectedObj = null;
                     }
-                    // set previous position values to current values of selected object
+                    // [OLD CODE] set previous position values to current values of selected object
+                    // [NEW CODE] place selected object in front of everything else w/ z position value whenever an object is selected
                     else
                     {
-                        selectedObjPrevPosX = selectedObj.transform.position.x;
-                        selectedObjPrevPosY = selectedObj.transform.position.y;
+                        // selectedObjPrevPosX = selectedObj.transform.position.x;
+                        // selectedObjPrevPosY = selectedObj.transform.position.y;
+
+                        foreach (GameObject obj in movableObjectList)
+                        {
+                            obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 90);
+                        }
+                        selectedObj.transform.position = new Vector3(selectedObj.transform.position.x, selectedObj.transform.position.y, 89);
 
                         GameManager.liveModeDisabled = true;
                     }
