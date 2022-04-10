@@ -61,7 +61,10 @@ public class ClickAndDrag : MonoBehaviour
     
     void Start()
     {
-        objOverlapWarningText.SetActive(false);
+        if (objOverlapWarningText != null)
+        {
+            objOverlapWarningText.SetActive(false);
+        }
     }
 
     public void DragHandler(BaseEventData data)
@@ -267,13 +270,16 @@ public class ClickAndDrag : MonoBehaviour
                         GameObject secondObj = movableObjectList[comparedObjIndex];
                     }
                 }*/
-                if (GameManager.liveModeDisabled)
+                if (objOverlapWarningText != null)
                 {
-                    objOverlapWarningText.SetActive(true);
-                }
-                else
-                {
-                    objOverlapWarningText.SetActive(false);
+                    if (GameManager.liveModeDisabled)
+                    {
+                        objOverlapWarningText.SetActive(true);
+                    }
+                    else
+                    {
+                        objOverlapWarningText.SetActive(false);
+                    }
                 }
 
                 selectedObj = null;
