@@ -33,6 +33,8 @@ public class ClickAndDrag : MonoBehaviour
 
     [SerializeField]
     private Canvas canvas;
+    [SerializeField]
+    private GameObject objOverlapWarningText;
 
     private bool canBuild = false;
     private void Awake()
@@ -59,6 +61,7 @@ public class ClickAndDrag : MonoBehaviour
     
     void Start()
     {
+        objOverlapWarningText.SetActive(false);
     }
 
     public void DragHandler(BaseEventData data)
@@ -174,6 +177,40 @@ public class ClickAndDrag : MonoBehaviour
                     }
                 }
             }
+            // regardless of whether mouse button has just been pressed/released, set selectedObj position if there is one
+            if (selectedObj)
+            {
+                GameManager.liveModeDisabled = false;
+                selectedObj.transform.position = new Vector3(mousePos.x, mousePos.y, selectedObj.transform.position.z);
+                for (int currentObjIndex = 0; currentObjIndex < movableObjectList.Count; currentObjIndex++)
+                {
+                    float posX = movableObjectList[currentObjIndex].transform.position.x;
+                    float posY = movableObjectList[currentObjIndex].transform.position.y;
+                    Collider2D selectedObjCollider = movableObjectList[currentObjIndex].GetComponent<Collider2D>();
+                    Vector2 size = selectedObjCollider.bounds.size;
+                    List<Collider2D> results = new List<Collider2D>();
+                    ContactFilter2D filter = new ContactFilter2D();
+                    int numOfCollisions = Physics2D.OverlapBox(new Vector2(posX, posY), size, 0, filter.NoFilter(), results);
+                    if ((numOfCollisions > 0 && results[0] != selectedObjCollider) || numOfCollisions > 1)
+                    {
+                        Debug.Log("object collision detected");
+                        movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.red;
+
+                        GameManager.liveModeDisabled = true;
+                    }
+                    else
+                    {
+                        movableObjectList[currentObjIndex].GetComponent<SpriteRenderer>().color = Color.white;
+                    }
+
+                    /*for (int comparedObjIndex = currentObjIndex + 1; comparedObjIndex < movableObjectList.Count; comparedObjIndex++)
+                    {
+                        // check if objects overlap
+                        GameObject firstObj = movableObjectList[currentObjIndex];
+                        GameObject secondObj = movableObjectList[comparedObjIndex];
+                    }*/
+                }
+            }
             // if mouse button has been released and object is selected, deselect it
             if (Input.GetMouseButtonUp(0) && selectedObj)
             {
@@ -230,9 +267,18 @@ public class ClickAndDrag : MonoBehaviour
                         GameObject secondObj = movableObjectList[comparedObjIndex];
                     }
                 }*/
+                if (GameManager.liveModeDisabled)
+                {
+                    objOverlapWarningText.SetActive(true);
+                }
+                else
+                {
+                    objOverlapWarningText.SetActive(false);
+                }
 
                 selectedObj = null;
             }
+            /*
             // regardless of whether mouse button has just been pressed/released, set selectedObj position if there is one
             if (selectedObj)
             {
@@ -264,9 +310,10 @@ public class ClickAndDrag : MonoBehaviour
                         // check if objects overlap
                         GameObject firstObj = movableObjectList[currentObjIndex];
                         GameObject secondObj = movableObjectList[comparedObjIndex];
-                    }*/
-                }
+                    }
+                }                
             }
+            */
         }
     }
 
