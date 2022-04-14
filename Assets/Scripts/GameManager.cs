@@ -68,6 +68,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void RetryLevel()
+    {
+        ball.GetComponent<Ball>().ResetPosition();
+        UpdateGameState(GameState.Building);
+    }
+
     public void Play()
     {
         if (state != GameState.Pause && state != GameState.End)
