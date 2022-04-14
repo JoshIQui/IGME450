@@ -92,7 +92,8 @@ public class Ball : MonoBehaviour
                     Debug.Log(unlockedlevel);
                 }
                 */
-                if (nextLevelIndex != 1)
+                //if (nextLevelIndex != 1)
+                if (nextLevelIndex != 1 && !unlockedLevels.Contains(nextLevelIndex.ToString()))
                 {
                     string level = "Level" + nextLevelIndex;
                     /*if (!alreadyUnlockedLevels.Contains(level))
@@ -118,6 +119,9 @@ public class Ball : MonoBehaviour
                 {
                     PlayerPrefs.SetString("IGME450_UnlockedLevels", unlockedLevels);
                 }
+
+                // for debugging purposes to reset level unlocks
+                //PlayerPrefs.SetString("IGME450_UnlockedLevels", "");
             }
             catch { }
 
