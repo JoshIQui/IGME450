@@ -19,6 +19,14 @@ public class Ball : MonoBehaviour
 
     [SerializeField] private StarCounter starCounter;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip backgroundSong;
+    [SerializeField] private AudioClip springSound;
+    [SerializeField] private AudioClip windSound;
+    [SerializeField] private AudioClip starSound;
+    [SerializeField] private AudioClip victorySound;
+
+
     private bool horizontalForce = false;
     private ForceDirection forceDirection = ForceDirection.Left;
 
@@ -65,6 +73,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "End")
         {
+            audioSource.PlayOneShot(victorySound, 1);
             //List<string> alreadyUnlockedLevels = new List<string>();
             string unlockedLevels = "";
             try
@@ -136,6 +145,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.tag == "LeftForce")
         {
+            audioSource.PlayOneShot(windSound, 1);
             // Sets horizontalForce to true and sets forceDirection to Left
             horizontalForce = true;
             forceDirection = ForceDirection.Left;
@@ -143,6 +153,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.tag == "RightForce")
         {
+            audioSource.PlayOneShot(windSound, 1);
             // Sets horizontalForce to true and sets forceDirection to Right
             horizontalForce = true;
             forceDirection = ForceDirection.Right;
@@ -153,10 +164,12 @@ public class Ball : MonoBehaviour
             // Add a force to the object in the direction the spring is pointing
             rb.velocity = new Vector2(0, 0);
             rb.AddForce(collision.gameObject.transform.up * springForce, ForceMode2D.Impulse);
+            audioSource.PlayOneShot(springSound, 1);
         }
 
         if (collision.gameObject.tag == "Star")
         {
+            audioSource.PlayOneShot(starSound, 1);
             stars++;
             collision.gameObject.SetActive(false);
             starCounter.IncreaseStarCount();
