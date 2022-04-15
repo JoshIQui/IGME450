@@ -13,17 +13,17 @@ public class StarCounter : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            //starHoles[i] = GameObject.Find("StarHole" + (i + 1));
-            //if (starCount > i) starHoles[i].SetActive(false); DEBUG INITIALIZE STARS
-        }
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    //starHoles[i] = GameObject.Find("StarHole" + (i + 1));
+        //    //if (starCount > i) starHoles[i].SetActive(false); DEBUG INITIALIZE STARS
+        //}
     }
 
     public void IncreaseStarCount()
     {
         print("Star " + starCount + " Filled");
-        //starHoles[starCount].SetActive(false);
+        starHoles[starCount].color = Color.white;
         starCount++;
     }
 

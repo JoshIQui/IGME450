@@ -7,7 +7,7 @@ public class PlayButton : MonoBehaviour
 {
     private Text text;
 
-    bool isPlaying = false;
+    private bool isPlaying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,17 +15,30 @@ public class PlayButton : MonoBehaviour
         text = GetComponentInChildren<Text>();
     }
 
+    private void Update()
+    {
+        //print(isPlaying);
+    }
+
     public void ToggleButton()
+    {
+        // If the gamestate is successfully changed
+        if(GameManager.instance.Play())
+        {
+            ChangeText();
+        }
+    }
+
+    public void ChangeText()
     {
         if (isPlaying)
         {
-            text.text = "Play";
-            isPlaying = false;
+            text.text = "PLAY";
         }
         else
         {
-            text.text = "Stop";
-            isPlaying = true;
+            text.text = "STOP";
         }
+        isPlaying = !isPlaying;
     }
 }

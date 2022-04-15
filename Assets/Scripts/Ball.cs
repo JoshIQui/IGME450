@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.UI;
 
 enum ForceDirection
 {
@@ -66,6 +67,7 @@ public class Ball : MonoBehaviour
         if (gameObject.transform.position.y < -10)
         {
             GameManager.instance.UpdateGameState(GameManager.GameState.Building);
+            GameObject.Find("Play Button").GetComponent<PlayButton>().ChangeText();
         }
     }
 

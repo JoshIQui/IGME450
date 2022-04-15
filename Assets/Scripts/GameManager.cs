@@ -74,20 +74,20 @@ public class GameManager : MonoBehaviour
         UpdateGameState(GameState.Building);
     }
 
-    public void Play()
+    public bool Play()
     {
-        if (state != GameState.Pause && state != GameState.End)
+        if (state == GameState.Building && !liveModeDisabled)
         {
-            if (state == GameState.Building && !liveModeDisabled)
-            {
-                UpdateGameState(GameState.Live);
-            }
-            else if (state == GameState.Live)
-            {
-                ball.GetComponent<Ball>().ResetPosition();
-                UpdateGameState(GameState.Building);
-            }
+            UpdateGameState(GameState.Live);
+            return true;
         }
+        else if (state == GameState.Live)
+        {
+            ball.GetComponent<Ball>().ResetPosition();
+            UpdateGameState(GameState.Building);
+            return true;
+        }
+        return false;
     }
 
     public void UnPause()
