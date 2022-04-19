@@ -950,6 +950,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2088684283243318030, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: count
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2088684283277483042, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1006,6 +1010,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2088684283307002273, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: count
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2088684283900993585, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1030,6 +1038,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2088684283900993586, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: count
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2088684284088613419, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1054,6 +1066,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2088684284088613460, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: count
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2088684284410653905, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1101,6 +1117,10 @@ PrefabInstance:
     - target: {fileID: 2088684284883710129, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088684284883710130, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
+      propertyPath: count
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2370030498959420221, guid: e2dce075212314f4193c0e3cf2fbbb1d, type: 3}
       propertyPath: count
