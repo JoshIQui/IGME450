@@ -735,7 +735,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: ba254133b0a96de4497dc4851c7c9f84, type: 3}
     - target: {fileID: 6720379628217684307, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
       propertyPath: nextLevelIndex
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6720379628217684307, guid: 2681783d89e444646b326ac10f5a79d3, type: 3}
       propertyPath: horizontalForceVelocty
