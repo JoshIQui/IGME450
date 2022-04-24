@@ -15,6 +15,7 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private float horizontalForceVelocty = 5.0f;
     [SerializeField] private float springForce = 10.0f;
+    [SerializeField] private float conveyorVelocity = 10.0f;
 
     [SerializeField] private int nextLevelIndex;
 
@@ -169,6 +170,13 @@ public class Ball : MonoBehaviour
             audioSource.PlayOneShot(springSound, 1);
         }
 
+        if (collision.gameObject.tag == "PermanentInvertedGravity")
+        {
+            // Inverts the gravity when entering an inverted gravity zone
+            // Is not reverted back upon exit
+            rb.gravityScale *= -1;
+        }
+
         if (collision.gameObject.tag == "Star")
         {
             audioSource.PlayOneShot(starSound, 1);
@@ -196,6 +204,72 @@ public class Ball : MonoBehaviour
         {
             // Sets horizontalForce to false
             horizontalForce = false;
+        }
+    }
+
+    // code for if conveyors apply force like wind does
+    private void OnColliderEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "UpwardConveyor")
+        {
+            // Inverts the gravity when entering an inverted gravity zone
+            rb.gravityScale *= -1;
+        }
+
+        if (collision.gameObject.tag == "LeftConveyor")
+        {
+            audioSource.PlayOneShot(windSound, 1);
+            // Sets horizontalForce to true and sets forceDirection to Left
+            horizontalForce = true;
+            forceDirection = ForceDirection.Left;
+        }
+
+        if (collision.gameObject.tag == "RightConveyor")
+        {
+            audioSource.PlayOneShot(windSound, 1);
+            // Sets horizontalForce to true and sets forceDirection to Right
+            horizontalForce = true;
+            forceDirection = ForceDirection.Right;
+        }
+    }
+
+    private void OnColliderExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "UpwardConveyor")
+        {
+            // Reverts the inverted gravity when exiting an inverted gravity zone
+            rb.gravityScale *= -1;
+        }
+
+        if (collision.gameObject.tag == "LeftConveyor")
+        {
+            // Sets horizontalForce to false
+            horizontalForce = false;
+        }
+
+        if (collision.gameObject.tag == "RightConveyor")
+        {
+            // Sets horizontalForce to false
+            horizontalForce = false;
+        }
+    }
+
+    // code for if conveyor belts move ball at a constant speed
+    private void OnColliderStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "UpwardConveyor")
+        {
+            rb.velocity = new Vector2(0, conveyorVelocity);
+        }
+
+        if (collision.gameObject.tag == "LeftConveyor")
+        {
+            rb.velocity = new Vector2(-conveyorVelocity, 0);
+        }
+
+        if (collision.gameObject.tag == "RightConveyor")
+        {
+            rb.velocity = new Vector2(conveyorVelocity, 0);
         }
     }
 
