@@ -13,6 +13,7 @@ enum ForceDirection
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private float verticalForceVelocty = 10.0f;
     [SerializeField] private float horizontalForceVelocty = 5.0f;
     [SerializeField] private float springForce = 10.0f;
     [SerializeField] private float conveyorVelocity = 10.0f;
@@ -28,7 +29,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private AudioClip starSound;
     [SerializeField] private AudioClip victorySound;
 
-
+    private bool verticalForce = false;
     private bool horizontalForce = false;
     private ForceDirection forceDirection = ForceDirection.Left;
 
@@ -59,6 +60,12 @@ public class Ball : MonoBehaviour
             // Movement augmented by horizontal force
             float addedForce = horizontalForceVelocty * (int)forceDirection;
             rb.velocity = new Vector2(rb.velocity.x + addedForce * Time.deltaTime, rb.velocity.y);
+        }
+        if (verticalForce)
+        {
+            // Movement augmented by vertical force
+            float addedForce = verticalForceVelocty;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + addedForce * Time.deltaTime);
         }
         else
         {
@@ -143,7 +150,8 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "InvertedGravity")
         {
             // Inverts the gravity when entering an inverted gravity zone
-            rb.gravityScale *= -1;
+            //rb.gravityScale *= -1;
+            verticalForce = true;
         }
 
         if (collision.gameObject.tag == "LeftForce")
@@ -191,7 +199,8 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "InvertedGravity")
         {
             // Reverts the inverted gravity when exiting an inverted gravity zone
-            rb.gravityScale *= -1;
+            //rb.gravityScale *= -1;
+            verticalForce = false;
         }
 
         if (collision.gameObject.tag == "LeftForce")
@@ -208,7 +217,7 @@ public class Ball : MonoBehaviour
     }
 
     // code for if conveyors apply force like wind does
-    private void OnColliderEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "UpwardConveyor")
         {
@@ -233,7 +242,7 @@ public class Ball : MonoBehaviour
         }
     }
 
-    private void OnColliderExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "UpwardConveyor")
         {
@@ -255,23 +264,23 @@ public class Ball : MonoBehaviour
     }
 
     // code for if conveyor belts move ball at a constant speed
-    private void OnColliderStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "UpwardConveyor")
-        {
-            rb.velocity = new Vector2(0, conveyorVelocity);
-        }
+    //private void OnColliderStay2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "UpwardConveyor")
+    //    {
+    //        rb.velocity = new Vector2(0, conveyorVelocity);
+    //    }
 
-        if (collision.gameObject.tag == "LeftConveyor")
-        {
-            rb.velocity = new Vector2(-conveyorVelocity, 0);
-        }
+    //    if (collision.gameObject.tag == "LeftConveyor")
+    //    {
+    //        rb.velocity = new Vector2(-conveyorVelocity, 0);
+    //    }
 
-        if (collision.gameObject.tag == "RightConveyor")
-        {
-            rb.velocity = new Vector2(conveyorVelocity, 0);
-        }
-    }
+    //    if (collision.gameObject.tag == "RightConveyor")
+    //    {
+    //        rb.velocity = new Vector2(conveyorVelocity, 0);
+    //    }
+    //}
 
     //RESTART THE LEVEL IF THE OBJECT LEAVES THE SCREEN
     //private void OnBecameInvisible()
