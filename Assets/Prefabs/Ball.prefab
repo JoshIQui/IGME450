@@ -101,7 +101,7 @@ MonoBehaviour:
   verticalForceVelocty: 10
   horizontalForceVelocty: 10
   springForce: 10
-  conveyorVelocity: 10
+  conveyorVelocity: 5
   nextLevelIndex: 0
   starCounter: {fileID: 0}
   audioSource: {fileID: 0}

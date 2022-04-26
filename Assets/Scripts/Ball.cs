@@ -81,7 +81,8 @@ public class Ball : MonoBehaviour
 
     public void ConveyorMove(Vector3 direction)
     {
-        rb.velocity = new Vector2(rb.velocity.x + (direction.x * conveyorVelocity) * Time.deltaTime, rb.velocity.y + (direction.y * conveyorVelocity) * Time.deltaTime);
+        //rb.velocity = new Vector2(rb.velocity.x + (direction.x * conveyorVelocity) * Time.deltaTime, rb.velocity.y + (direction.y * conveyorVelocity) * Time.deltaTime);
+        rb.velocity = new Vector2(direction.x * conveyorVelocity, direction.y * conveyorVelocity);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
