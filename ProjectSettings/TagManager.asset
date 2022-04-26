@@ -13,6 +13,7 @@ TagManager:
   - UpwardConveyor
   - LeftConveyor
   - RightConveyor
+  - ball
   layers:
   - Default
   - TransparentFX

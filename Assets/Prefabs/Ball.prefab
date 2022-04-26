@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6720379628217684302}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,8 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d0ec1c30938ec4b9bc416d455e912d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verticalForceVelocty: 10
   horizontalForceVelocty: 10
   springForce: 10
+  conveyorVelocity: 10
   nextLevelIndex: 0
   starCounter: {fileID: 0}
   audioSource: {fileID: 0}
