@@ -14,6 +14,7 @@ TagManager:
   - LeftConveyor
   - RightConveyor
   - ball
+  - PermanentInvertedGravity
   layers:
   - Default
   - TransparentFX
