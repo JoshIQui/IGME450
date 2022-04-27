@@ -72,7 +72,7 @@ public class Ball : MonoBehaviour
             // Movement
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
-        if (gameObject.transform.position.y < -10)
+        if (gameObject.transform.position.y < -10 || gameObject.transform.position.y > 10)
         {
             GameManager.instance.UpdateGameState(GameManager.GameState.Building);
             GameObject.Find("Play Button").GetComponent<PlayButton>().ChangeText();
@@ -298,6 +298,10 @@ public class Ball : MonoBehaviour
     {
         //rb.MovePosition(startPosition);
         rb.position = startPosition;
+        if (rb.gravityScale < 0)
+        {
+            rb.gravityScale *= -1;
+        }
     }
 
     public void NextLevel()
