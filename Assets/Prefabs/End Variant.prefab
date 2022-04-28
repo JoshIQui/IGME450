@@ -143,8 +143,24 @@ PrefabInstance:
       value: End Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3146167346966139709, guid: 13d58c88860dcc340932778bfe67eded, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5185127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146167346966139709, guid: 13d58c88860dcc340932778bfe67eded, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0723593
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146167346966139709, guid: 13d58c88860dcc340932778bfe67eded, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146167346966139709, guid: 13d58c88860dcc340932778bfe67eded, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.16741276
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146167346966139709, guid: 13d58c88860dcc340932778bfe67eded, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.7573656
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13d58c88860dcc340932778bfe67eded, type: 3}
@@ -165,12 +181,12 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8424331352301559242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17146552, y: -0.75431156}
+  m_Offset: {x: -0.17146552, y: -0.65}
   serializedVersion: 2
-  m_Radius: 0.53696084
+  m_Radius: 0.6405362
