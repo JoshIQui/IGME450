@@ -16,7 +16,7 @@ public class LevelSelect : MonoBehaviour
     void Start()
     {
         // if final build hasn't been opened before on user's computer, wipe pre-existing level unlocks data
-        /*if (PlayerPrefs.GetString("IGME450_FinalBuildPlayed") != "" && PlayerPrefs.GetString("IGME450_FinalBuildPlayed") != null)
+        /*if (PlayerPrefs.GetString("IGME450_FinalBuildPlayed") == "" || PlayerPrefs.GetString("IGME450_FinalBuildPlayed") == null)
         {
             PlayerPrefs.SetString("IGME450_UnlockedLevels", "");
             PlayerPrefs.SetString("IGME450_FinalBuildPlayed", "true");

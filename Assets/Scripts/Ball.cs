@@ -127,6 +127,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.tag == "InvertedGravity")
         {
+            audioSource.PlayOneShot(windSound, 1);
             // Adds vertical force when entering upwards wind
             verticalForce = true;
         }
