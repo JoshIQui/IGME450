@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         ball.GetComponent<Ball>().ResetPosition();
         UpdateGameState(GameState.Building);
+        GameObject.Find("Play Button").GetComponent<PlayButton>().ChangeText();
     }
 
     public bool Play()
