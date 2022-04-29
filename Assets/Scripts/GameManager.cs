@@ -40,22 +40,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P) && state != GameState.Pause && state != GameState.End)
-        {
-            if (state == GameState.Building && !liveModeDisabled)
-            {
-                UpdateGameState(GameState.Live);
-            }
-            else if (state == GameState.Live)
-            {
-                ball.GetComponent<Ball>().ResetPosition();
-                UpdateGameState(GameState.Building);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.R) && state != GameState.Pause && state != GameState.End)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
         if (Input.GetKeyDown(KeyCode.Escape) && state != GameState.Pause && state != GameState.End)
         {
             beforePausedState = state;
