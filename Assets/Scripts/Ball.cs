@@ -45,8 +45,7 @@ public class Ball : MonoBehaviour
         startPosition = GameObject.Find("Start").transform.position;
         rb = GetComponent<Rigidbody2D>();
 
-        // Finally, set the object position to the start position
-        //rb.MovePosition(startPosition);
+        // Finally, set the object position to the start position\
         rb.position = startPosition;
 
         gameObject.SetActive(false);
@@ -81,7 +80,6 @@ public class Ball : MonoBehaviour
 
     public void ConveyorMove(Vector3 direction)
     {
-        //rb.velocity = new Vector2(rb.velocity.x + (direction.x * conveyorVelocity) * Time.deltaTime, rb.velocity.y + (direction.y * conveyorVelocity) * Time.deltaTime);
         rb.velocity = new Vector2(direction.x * conveyorVelocity, direction.y * conveyorVelocity);
     }
 
@@ -90,45 +88,19 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "End")
         {
             audioSource.PlayOneShot(victorySound, 1);
-            //List<string> alreadyUnlockedLevels = new List<string>();
             string unlockedLevels = "";
             try
             {
-                /* StreamReader input = new StreamReader("UnlockedLevels.txt");
-                string line = null;
-                while ((line = input.ReadLine()) != null)
-                {
-                    alreadyUnlockedLevels.Add(line);
-                }
-                input.Close();
-                */
-
                 unlockedLevels = PlayerPrefs.GetString("IGME450_UnlockedLevels", "");
             }
             catch { }
 
             try
             {
-                /*StreamWriter output = new StreamWriter("UnlockedLevels.txt");
-                string unlockedLevels = "";
-                foreach (string unlockedlevel in alreadyUnlockedLevels) 
-                {
-                    output.WriteLine(unlockedlevel);
-                    Debug.Log(unlockedlevel);
-                }
-                */
                 //if (nextLevelIndex != 1)
                 if (nextLevelIndex != 1 && !unlockedLevels.Contains(nextLevelIndex.ToString()))
                 {
                     string level = "Level" + nextLevelIndex;
-                    /*if (!alreadyUnlockedLevels.Contains(level))
-                    if (!unlockedLevels.Contains(level))
-                    {
-                        //output.WriteLine(level);
-                        //Debug.Log(level);
-                        unlockedLevels += level;
-                    }
-                    */
                     if (unlockedLevels == "")
                     {
                         unlockedLevels += level;
@@ -155,8 +127,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.tag == "InvertedGravity")
         {
-            // Inverts the gravity when entering an inverted gravity zone
-            //rb.gravityScale *= -1;
+            // Adds vertical force when entering upwards wind
             verticalForce = true;
         }
 
@@ -204,8 +175,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "InvertedGravity")
         {
-            // Reverts the inverted gravity when exiting an inverted gravity zone
-            //rb.gravityScale *= -1;
+            // Stops applying vertical force when exiting upwards wind
             verticalForce = false;
         }
 
@@ -269,34 +239,8 @@ public class Ball : MonoBehaviour
         }
     }
 
-    // code for if conveyor belts move ball at a constant speed
-    //private void OnColliderStay2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "UpwardConveyor")
-    //    {
-    //        rb.velocity = new Vector2(0, conveyorVelocity);
-    //    }
-
-    //    if (collision.gameObject.tag == "LeftConveyor")
-    //    {
-    //        rb.velocity = new Vector2(-conveyorVelocity, 0);
-    //    }
-
-    //    if (collision.gameObject.tag == "RightConveyor")
-    //    {
-    //        rb.velocity = new Vector2(conveyorVelocity, 0);
-    //    }
-    //}
-
-    //RESTART THE LEVEL IF THE OBJECT LEAVES THE SCREEN
-    //private void OnBecameInvisible()
-    //{
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //}
-
     public void ResetPosition()
     {
-        //rb.MovePosition(startPosition);
         rb.position = startPosition;
         if (rb.gravityScale < 0)
         {

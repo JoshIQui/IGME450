@@ -17,7 +17,6 @@ public class PlayButton : MonoBehaviour
 
     private void Update()
     {
-        //print(isPlaying);
     }
 
     public void ToggleButton()
