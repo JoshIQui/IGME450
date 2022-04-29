@@ -32,15 +32,6 @@ public class StartingLevel : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.P))
-    //    {
-    //        OnClick();
-    //        print("test");
-    //    }
-    //}
-
     public void OnClick()
     {
         ball.SetActive(true);

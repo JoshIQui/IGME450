@@ -9,25 +9,21 @@ public class LevelSelect : MonoBehaviour
 {
     [SerializeField] private GameObject content;
     [SerializeField] private GameObject level1Button;
-    //private List<string> unlockedLevels = new List<string>();
     private string[] unlockedLevels = new string[0];
     [SerializeField] private float buttonGapMultiplier = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        // get list of unlocked levels (for now, manually add placeholders)
-        try {
-            /*
-            StreamReader input = new StreamReader("UnlockedLevels.txt");
-            string line = null;
-            while ((line = input.ReadLine()) != null)
-            {
-                unlockedLevels.Add(line);
-            }
-            input.Close();
-            */
+        // if final build hasn't been opened before on user's computer, wipe pre-existing level unlocks data
+        /*if (PlayerPrefs.GetString("IGME450_FinalBuildPlayed") == "" || PlayerPrefs.GetString("IGME450_FinalBuildPlayed") == null)
+        {
+            PlayerPrefs.SetString("IGME450_UnlockedLevels", "");
+            PlayerPrefs.SetString("IGME450_FinalBuildPlayed", "true");
+        }*/
 
+        // get list of unlocked levels
+        try {
             if (PlayerPrefs.GetString("IGME450_UnlockedLevels") != "" && PlayerPrefs.GetString("IGME450_UnlockedLevels") != null)
             {
                 unlockedLevels = PlayerPrefs.GetString("IGME450_UnlockedLevels").Split(',');
